@@ -31,7 +31,7 @@
   </head>
   
   <body>
-<h1 style="text-align: center;">网上书店</h1>
+<h1 style="text-align: center;">快乐风男书店</h1>
 <div style="font-size: 10pt;">
 	<c:choose>
 		<c:when test="${ empty sessionScope.user}">

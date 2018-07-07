@@ -28,7 +28,6 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping("user")
-@Scope("prototype")
 public class UserController {
     @Autowired
     private UserService userService;

@@ -1,6 +1,8 @@
 package com.xhm.ssm.controller.interceptor;
 
+import com.xhm.ssm.exception.CustomException;
 import com.xhm.ssm.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  * @version: 1.0
  */
 public class HandlerInterceptor1 implements HandlerInterceptor {
+    @Autowired
+    private CustomException customException;
     //进入handler方法之前
     //用于身份认证、身份授权
     //如果没登录，就拦截向下执行
@@ -40,10 +44,19 @@ public class HandlerInterceptor1 implements HandlerInterceptor {
         else if(uri.indexOf("/jumpRegist.action")>=0){
             return true;
         }
+        else if(uri.indexOf("/jumpLogin.action")>=0){
+            return true;
+        }
+        else if(uri.indexOf("/active.action")>=0){
+            return true;
+        }
+        else if(uri.indexOf("/jsps/main.jsp")>=0){
+            return true;
+        }
         else if(user!=null){
             return true;
         }
-        //httpServletRequest.setAttribute("msg", "您还没有登录，请先登录！");
+        httpServletRequest.setAttribute("msg", "您还没有登录，请先登录！");
         httpServletRequest.getRequestDispatcher("/user/jumpLogin.action").forward(httpServletRequest, httpServletResponse);
         return false;
     }

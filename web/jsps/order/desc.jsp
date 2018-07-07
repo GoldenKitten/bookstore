@@ -79,15 +79,15 @@
 
 	选择银行：<br/>
 	<input type="radio" name="pd_FrpId" value="ICBC-NET-B2C" checked="checked"/>工商银行
-	<img src="../../bank_img/icbc.bmp" align="middle"/>
+	<img src="<c:url value='/bank_img/icbc.bmp'/> " align="middle"/>
 	<input type="radio" name="pd_FrpId" value="BOC-NET-B2C"/>中国银行
-	<img src="../../bank_img/bc.bmp" align="middle"/><br/><br/>
+	<img src="<c:url value='/bank_img/bc.bmp'/>" align="middle"/><br/><br/>
 	<input type="radio" name="pd_FrpId" value="ABC-NET-B2C"/>农业银行
-	<img src="../../bank_img/abc.bmp" align="middle"/>
+	<img src="<c:url value='/bank_img/abc.bmp'/>" align="middle"/>
 	<input type="radio" name="pd_FrpId" value="CCB-NET-B2C"/>建设银行
-	<img src="../../bank_img/ccb.bmp" align="middle"/><br/><br/>
+	<img src="<c:url value='/bank_img/ccb.bmp'/>" align="middle"/><br/><br/>
 	<input type="radio" name="pd_FrpId" value="BOCO-NET-B2C"/>交通银行
-	<img src="../../bank_img/bcc.bmp" align="middle"/><br/>
+	<img src="<c:url value='/bank_img/bcc.bmp'/>" align="middle"/><br/>
 </form>
 <a id="pay" href="javascript:document.getElementById('form').submit();"></a>
 

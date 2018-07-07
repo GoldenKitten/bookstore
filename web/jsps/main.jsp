@@ -6,7 +6,7 @@
 <html>
   <head>
     
-    <title>main</title>
+    <title>主页</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -42,19 +42,30 @@
   
   <body>
 <table class="table" align="center">
+	<c:choose>
+		<c:when test="${ empty sessionScope.user}">
 	<tr style="background: #4682B4; height: 120px; ">
 		<td colspan="2" align="center">
 			<iframe frameborder="0" src="<c:url value='/jsps/top.jsp'/>" name="top"></iframe>
 		</td>
 	</tr>
+		</c:when>
+		<c:otherwise>
+			<tr style="background: #4682B4; height: 120px; ">
+				<td colspan="2" align="center">
+					<iframe frameborder="0" src="<c:url value='/jsps/top.jsp'/>" name="top"></iframe>
+				</td>
+			</tr>
 	<tr>
 		<td width="120" style="padding:5px;" align="center" valign="top">
 			<iframe frameborder="0" width="120" src="<c:url value='/category/findall.action'/>" name="left"></iframe>
 		</td>
 		<td>
-			<iframe frameborder="0" src="<c:url value='/jsps/body.jsp'/>" name="body"></iframe>
+			<iframe frameborder="0" src="<c:url value='/book/findAllBook.action'/>" name="body"></iframe>
 		</td>
 	</tr>
+		</c:otherwise>
+	</c:choose>
 </table>
   </body>
 </html>
