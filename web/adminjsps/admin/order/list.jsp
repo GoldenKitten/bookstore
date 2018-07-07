@@ -5,7 +5,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>订单列表</title>
+    <title>${title}</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -52,8 +52,8 @@
   </head>
   
   <body>
-<h1>我的订单</h1>
-
+<h1>${title}</h1>
+<c:forEach items="${all}" var="ordersExpandList">
 <table border="1" width="100%" cellspacing="0" background="black">
 	<c:forEach items="${ordersExpandList}" var="ordersExpand">
 	<tr bgcolor="gray" bordercolor="gray">
@@ -61,7 +61,9 @@
 			订单编号：${ordersExpand.orders.oid}　成交时间：<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ordersExpand.orders.ordertime}"/>　金额：<font color="red"><b>${ordersExpand.orders.total}</b></font>　
 			<c:choose>
 				<c:when test="${ordersExpand.orders.state eq 0 }">
-					<a href="<c:url value="/order/loadOrder.action?oid=${ordersExpand.orders.oid}"/>">付款</a>
+					<%--<a href="<c:url value="/order/loadOrder.action?oid=${ordersExpand.orders.oid}"/>">付款</a>--%>
+					<%--<a href="<c:url value="/order/deleteOrder.action?oid=${ordersExpand.orders.oid}"/>">删除</a>--%>
+				未付款
 				</c:when>
 				<c:when test="${ordersExpand.orders.state eq 1 }">等待发货</c:when>
 				<c:when test="${ordersExpand.orders.state eq 2 }">
@@ -74,6 +76,14 @@
 
 		</td>
 	</tr>
+		<tr>
+			<th>图片</th>
+			<th>书名</th>
+			<th>作者</th>
+			<th>单价</th>
+			<th>数量</th>
+			<th>小计</th>
+		</tr>
 	<c:forEach items="${ordersExpand.orderItemExpandsList}" var="orderItemExpands">
 	<tr bordercolor="gray" align="center">
 		<td width="15%">
@@ -88,5 +98,6 @@
 	</c:forEach>
 	</c:forEach>
 </table>
+</c:forEach>
   </body>
 </html>

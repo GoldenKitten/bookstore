@@ -6,6 +6,7 @@ import com.xhm.ssm.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -81,5 +82,13 @@ public class OrderContrroller {
         orderService.confirm(oid);
         customException.setMessage("交易成功");
         throw customException;
+    }
+    @GetMapping("deleteOrder.action")
+    public String deleteOrder(Model model,HttpSession httpSession,String oid) throws Exception{
+        orderService.delete(oid);
+        User user= (User) httpSession.getAttribute("user");
+        List<OrdersExpand> ordersExpandList=orderService.myOrder(user.getUid());
+        model.addAttribute("ordersExpandList",ordersExpandList);
+        return "jsps/order/list";
     }
 }

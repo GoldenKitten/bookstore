@@ -3,6 +3,7 @@ package com.xhm.ssm.service.impl;
 import com.xhm.ssm.exception.CustomException;
 import com.xhm.ssm.mapper.OrderItemMapper;
 import com.xhm.ssm.mapper.OrdersMapper;
+import com.xhm.ssm.mapper.UserMapper;
 import com.xhm.ssm.model.*;
 import com.xhm.ssm.service.BookService;
 import com.xhm.ssm.service.OrderService;
@@ -10,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @program: bookstore
@@ -104,5 +104,37 @@ public class OrderServiceImpl implements OrderService {
             ordersMapper.updateByPrimaryKeySelective(orders1);
 
         }
+    }
+
+    @Override
+    @Transactional
+    public void delete(String oid) throws Exception {
+        OrderItemExample orderItemExample=new OrderItemExample();
+        OrderItemExample.Criteria criteria = orderItemExample.createCriteria();
+        criteria.andOidEqualTo(oid);
+        List<OrderItem> orderItemList=orderItemMapper.selectByExample(orderItemExample);
+        for(OrderItem orderItem:orderItemList){
+            orderItemMapper.deleteByPrimaryKey(orderItem.getIid());
+        }
+     ordersMapper.deleteByPrimaryKey(oid);
+    }
+
+    @Override
+    public List<List<OrdersExpand>> findAllOrders() throws Exception {
+        OrdersExample ordersExample=new OrdersExample();
+        OrdersExample.Criteria criteria = ordersExample.createCriteria();
+        List<Orders> ordersList=ordersMapper.selectByExample(ordersExample);
+        List<Map<User,Orders>> allOrders=new ArrayList<>();
+        Set<String> set=new HashSet();
+        for(Orders orders:ordersList){
+           set.add(orders.getUid());
+        }
+        Iterator it=set.iterator();
+        List<List<OrdersExpand>> all=new ArrayList<>();
+        while (it.hasNext()){
+            List<OrdersExpand> ordersExpandList=myOrder(it.next().toString());
+            all.add(ordersExpandList);
+        }
+        return all;
     }
 }

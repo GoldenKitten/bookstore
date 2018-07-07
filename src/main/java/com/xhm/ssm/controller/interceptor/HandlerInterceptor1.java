@@ -53,6 +53,15 @@ public class HandlerInterceptor1 implements HandlerInterceptor {
         else if(uri.indexOf("/jsps/main.jsp")>=0){
             return true;
         }
+        else if(uri.indexOf("/adminjsps/")>=0){
+            if(user!=null&&user.getUsername().equals("klfn")&&user.getPassword().equals("12345678")){
+                return true;
+            }
+            else {
+                httpServletResponse.sendRedirect("/error.jsp");
+                return false;
+            }
+        }
         else if(user!=null){
             return true;
         }

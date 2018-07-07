@@ -62,6 +62,7 @@
 			<c:choose>
 				<c:when test="${ordersExpand.orders.state eq 0 }">
 					<a href="<c:url value="/order/loadOrder.action?oid=${ordersExpand.orders.oid}"/>">付款</a>
+					<a href="<c:url value="/order/deleteOrder.action?oid=${ordersExpand.orders.oid}"/>">删除</a>
 				</c:when>
 				<c:when test="${ordersExpand.orders.state eq 1 }">等待发货</c:when>
 				<c:when test="${ordersExpand.orders.state eq 2 }">
@@ -74,6 +75,14 @@
 
 		</td>
 	</tr>
+		<tr>
+			<th>图片</th>
+			<th>书名</th>
+			<th>作者</th>
+			<th>单价</th>
+			<th>数量</th>
+			<th>小计</th>
+		</tr>
 	<c:forEach items="${ordersExpand.orderItemExpandsList}" var="orderItemExpands">
 	<tr bordercolor="gray" align="center">
 		<td width="15%">

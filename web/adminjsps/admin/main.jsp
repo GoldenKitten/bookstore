@@ -6,7 +6,7 @@
 <html>
   <head>
     
-    <title>My JSP 'main.jsp' starting page</title>
+    <title>图书后台管理</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">

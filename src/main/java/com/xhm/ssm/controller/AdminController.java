@@ -3,8 +3,10 @@ package com.xhm.ssm.controller;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xhm.ssm.model.Book;
 import com.xhm.ssm.model.Category;
+import com.xhm.ssm.model.OrdersExpand;
 import com.xhm.ssm.service.BookService;
 import com.xhm.ssm.service.CategoryService;
+import com.xhm.ssm.service.OrderService;
 import com.xhm.ssm.utils.L;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +38,8 @@ public class AdminController {
     private CategoryService categoryService;
     @Autowired
     private BookService bookService;
+    @Autowired
+    private OrderService orderService;
     @RequestMapping(value = "findAllCategory.action",method = RequestMethod.GET)
     public String findAllCategory(Model model) throws Exception{
         List<Category> categoryList=categoryService.findAllCategory();
@@ -125,5 +130,32 @@ public class AdminController {
             model.addAttribute("msg","请上传图片");
         }
         return "adminjsps/admin/book/add";
+    }
+    @GetMapping("findAllOrders.action")
+    public String findAllOrders(Model model) throws Exception{
+        List<List<OrdersExpand>> all=orderService.findAllOrders();
+        model.addAttribute("title","所有订单");
+        model.addAttribute("all",all);
+        return "adminjsps/admin/order/list";
+    }
+    @GetMapping("findOrdersByState.action")
+    public String findOrdersByState(String title,String state,Model model) throws Exception{
+        Short s=new Short(state);
+
+        List<List<OrdersExpand>> all=orderService.findAllOrders();
+        List<List<OrdersExpand>> newAll=new ArrayList<>();
+        List<OrdersExpand> ordersExpands=new ArrayList<>();
+        for(List<OrdersExpand> ordersExpandList:all){
+            for(OrdersExpand ordersExpand:ordersExpandList){
+                if(ordersExpand.getOrders().getState().shortValue()==s.shortValue()){
+                    ordersExpands.add(ordersExpand);
+                }
+            }
+           newAll.add(ordersExpands);
+        }
+        model.addAttribute("title",title);
+        model.addAttribute("all",newAll);
+        System.out.println(s);
+        return "adminjsps/admin/order/list";
     }
 }

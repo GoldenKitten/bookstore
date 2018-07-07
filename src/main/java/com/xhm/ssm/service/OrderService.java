@@ -18,4 +18,6 @@ public interface OrderService {
     public List<OrdersExpand> myOrder(String uid) throws Exception;
     public OrdersExpand loadOrder(String oid) throws Exception;
     public void confirm(String oid) throws Exception;
+    public void delete(String oid) throws Exception;
+    public List<List<OrdersExpand>> findAllOrders() throws Exception;
 }
