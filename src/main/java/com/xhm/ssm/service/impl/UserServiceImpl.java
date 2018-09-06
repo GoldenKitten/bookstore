@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @program: bookstore
  * @description: 用户业务接口实现
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-21 19:40
  * @version: 1.0
  */

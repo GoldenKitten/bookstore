@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @program: bookstore
  * @description: 图书分类接口
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-23 16:24
  * @version: 1.0
  */

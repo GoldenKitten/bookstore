@@ -5,7 +5,7 @@ import javax.validation.GroupSequence;
 /**
  * @program: bookstore
  * @description: 这是一个分组接口
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-22 23:58
  * @version: 1.0
  */

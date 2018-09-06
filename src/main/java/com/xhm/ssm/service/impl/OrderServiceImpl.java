@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * @program: bookstore
  * @description: 订单实现类
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-25 20:29
  * @version: 1.0
  */

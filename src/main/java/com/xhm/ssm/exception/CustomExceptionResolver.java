@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @program: workspace
  * @description: 全局异常处理器
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-20 12:26
  * @version: 1.0
  */

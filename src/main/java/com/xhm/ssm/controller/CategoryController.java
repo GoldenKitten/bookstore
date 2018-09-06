@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @program: bookstore
  * @description: 图书分类控制器
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-23 16:32
  * @version: 1.0
  */

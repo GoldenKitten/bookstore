@@ -3,6 +3,7 @@ package com.xhm.ssm.controller.interceptor;
 import com.xhm.ssm.exception.CustomException;
 import com.xhm.ssm.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,10 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @program: workspace
  * @description: 这是一个拦截器
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-20 14:59
  * @version: 1.0
  */
+
 public class HandlerInterceptor1 implements HandlerInterceptor {
     @Autowired
     private CustomException customException;
@@ -32,37 +34,53 @@ public class HandlerInterceptor1 implements HandlerInterceptor {
         if(uri.indexOf("/login.jsp")>=0){
             return true;
         }
-        else if(uri.indexOf("/regist.jsp")>=0){
+        if(uri.indexOf("/bank_img")>=0){
             return true;
         }
-        else if(uri.indexOf("/login.action")>=0){
+        if(uri.indexOf("/book_img")>=0){
             return true;
         }
-        else if(uri.indexOf("/regist.action")>=0){
+        if(uri.indexOf("/images")>=0){
             return true;
         }
-        else if(uri.indexOf("/jumpRegist.action")>=0){
+        if(uri.indexOf("/menu")>=0){
             return true;
         }
-        else if(uri.indexOf("/jumpLogin.action")>=0){
+        if(uri.indexOf("/jsps")>=0){
             return true;
         }
-        else if(uri.indexOf("/active.action")>=0){
+        if(uri.indexOf("/regist.jsp")>=0){
             return true;
         }
-        else if(uri.indexOf("/jsps/main.jsp")>=0){
+        if(uri.indexOf("/login.action")>=0){
             return true;
         }
-        else if(uri.indexOf("/adminjsps/")>=0){
-            if(user!=null&&user.getUsername().equals("klfn")&&user.getPassword().equals("12345678")){
+        if(uri.indexOf("/regist.action")>=0){
+            return true;
+        }
+         if(uri.indexOf("/jumpRegist.action")>=0){
+            return true;
+        }
+        if(uri.indexOf("/jumpLogin.action")>=0){
+            return true;
+        }
+         if(uri.indexOf("/active.action")>=0){
+            return true;
+        }
+         if(uri.indexOf("/jsps/main.jsp")>=0){
+            return true;
+        }
+         if(uri.indexOf("/admin")>=0){
+            if(user!=null&&user.getUsername().equals("xhm")&&user.getPassword().equals("12345678")){
                 return true;
             }
             else {
-                httpServletResponse.sendRedirect("/error.jsp");
+                //httpServletResponse.sendRedirect("/error.jsp");
+                httpServletRequest.getRequestDispatcher("/error").forward(httpServletRequest, httpServletResponse);
                 return false;
             }
         }
-        else if(user!=null){
+         if(user!=null){
             return true;
         }
         httpServletRequest.setAttribute("msg", "您还没有登录，请先登录！");

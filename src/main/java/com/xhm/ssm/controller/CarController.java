@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @program: bookstore
  * @description: 购物车控制类
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-25 11:09
  * @version: 1.0
  */

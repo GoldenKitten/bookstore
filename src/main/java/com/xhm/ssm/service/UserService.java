@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 /**
  * @program: bookstore
  * @description: 用户业务接口
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-21 19:29
  * @version: 1.0
  */

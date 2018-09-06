@@ -3,7 +3,7 @@ package com.xhm.ssm.exception;
 /**
  * @program: bookstore
  * @description: 注册校验异常
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-23 09:22
  * @version: 1.0
  */

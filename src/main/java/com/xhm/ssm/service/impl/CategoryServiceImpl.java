@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * @program: bookstore
  * @description: 图书分类接口实现
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-23 16:27
  * @version: 1.0
  */

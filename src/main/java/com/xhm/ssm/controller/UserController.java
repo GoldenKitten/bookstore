@@ -16,18 +16,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * @program: bookstore
  * @description: 用户控制器
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-21 19:42
  * @version: 1.0
  */
 @Controller
 @RequestMapping("user")
+@Scope("prototype")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -36,8 +38,10 @@ public class UserController {
                          @Validated({UserGroup.LoginValidator.class,UserGroup.RegistValidator.class}) User user,
                          BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
+
             List<ObjectError> allErrors=bindingResult.getAllErrors();
-            model.addAttribute("msg",allErrors.get(0).getDefaultMessage());
+            //model.addAttribute("msg",allErrors.get(0).getDefaultMessage());
+            model.addAttribute("msg","用户名或密码或邮箱不正确");
             model.addAttribute("user",user);
             //转发和重定向对视图解析器不起作用
             return "jsps/user/regist";
@@ -63,7 +67,8 @@ public class UserController {
                         BindingResult bindingResult) throws Exception{
         if(bindingResult.hasErrors()){
             List<ObjectError> allErrors=bindingResult.getAllErrors();
-            model.addAttribute("msg",allErrors.get(0).getDefaultMessage());
+            //model.addAttribute("msg",allErrors.get(0).getDefaultMessage());
+            model.addAttribute("msg","用户名或密码不能为空");
             model.addAttribute("user",user);
             //转发和重定向对视图解析器不起作用
             //默认转发

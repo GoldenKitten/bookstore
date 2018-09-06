@@ -11,10 +11,10 @@ import javax.validation.constraints.Size;
 public class User {
     private String uid;
     @NotBlank(message="{user.username.empty.msg}",groups = {UserGroup.LoginValidator.class})
-    @Size(min = 2,max = 10,message = "用户名必须在2到10之间",groups = {UserGroup.LoginValidator.class})
+    //@Size(min = 2,max = 10,message = "用户名必须在2到10之间",groups = {UserGroup.LoginValidator.class})
     private String username;
     @NotBlank(message = "密码不能为空",groups = {UserGroup.LoginValidator.class})
-    @Size(min = 6,max = 16,message = "密码必须在6到16之间",groups = {UserGroup.LoginValidator.class})
+    //@Size(min = 6,max = 16,message = "密码必须在6到16之间",groups = {UserGroup.LoginValidator.class})
     private String password;
     @NotBlank(message = "邮箱不能为空",groups = {UserGroup.RegistValidator.class})
     @Email(message = "邮箱不正确",groups = {UserGroup.RegistValidator.class})

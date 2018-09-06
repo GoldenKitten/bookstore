@@ -1,15 +1,14 @@
 package com.xhm.ssm.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xhm.ssm.model.Book;
 import com.xhm.ssm.model.Category;
 import com.xhm.ssm.model.OrdersExpand;
 import com.xhm.ssm.service.BookService;
 import com.xhm.ssm.service.CategoryService;
 import com.xhm.ssm.service.OrderService;
-import com.xhm.ssm.utils.L;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ import java.util.UUID;
 /**
  * @program: bookstore
  * @description: 管理员控制类
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-26 11:15
  * @version: 1.0
  */
@@ -44,24 +43,24 @@ public class AdminController {
     public String findAllCategory(Model model) throws Exception{
         List<Category> categoryList=categoryService.findAllCategory();
         model.addAttribute("categoryList",categoryList);
-        return "adminjsps/admin/category/list";
+        return "WEB-INF/adminjsps/admin/category/list";
     }
     @RequestMapping(value = "addCategory.action",method = RequestMethod.POST)
     public String addCategory(Model model,String cname) throws Exception{
        categoryService.addCategory(cname);
        model.addAttribute("msg","添加分类成功");
-        return "adminjsps/admin/category/add";
+        return "WEB-INF/adminjsps/admin/category/add";
     }
     @RequestMapping(value = "deleteCategory.action",method = RequestMethod.GET)
     public String deleteCategory(Model model,String cid) throws Exception{
         categoryService.deleteCategory(cid);
         model.addAttribute("msg","删除成功");
-        return "adminjsps/admin/category/del";
+        return "WEB-INF/adminjsps/admin/category/del";
     }
     @RequestMapping(value = "editCategoryPre.action",method = RequestMethod.GET)
     public String editCategoryPre(Model model,String cid) throws Exception{
         model.addAttribute("category",categoryService.findCategory(cid));
-        return "adminjsps/admin/category/mod";
+        return "WEB-INF/adminjsps/admin/category/mod";
     }
     @RequestMapping(value = "editCategory.action",method = RequestMethod.POST)
     public void editCategory(Model model,Category category) throws Exception{
@@ -71,7 +70,7 @@ public class AdminController {
     public String findAllBook(Model model) throws Exception{
         List<Book> bookList=bookService.findAllBook();
         model.addAttribute("bookList",bookList);
-        return "adminjsps/admin/book/list";
+        return "WEB-INF/adminjsps/admin/book/list";
     }
     @RequestMapping(value = "findBook.action",method = RequestMethod.GET)
     public String findBook(Model model,String bid) throws Exception{
@@ -87,17 +86,21 @@ public class AdminController {
         model.addAttribute("book",book);
         model.addAttribute("bookCategory",bookCategory);
         model.addAttribute("categoryList",categoryList);
-        return "adminjsps/admin/book/desc";
+        return "WEB-INF/adminjsps/admin/book/desc";
     }
     @RequestMapping(value = "editBook.action",method = RequestMethod.POST)
-    public void editBook(String price,Book book) throws Exception{
+    public String editBook(Model model,String price,Book book) throws Exception{
         book.setPrice(new BigDecimal(price));
             bookService.editBook(book);
+            model.addAttribute("msg","修改成功");
+            return "jsps/msg";
     }
     @RequestMapping(value = "delBook.action",method = RequestMethod.POST)
-    public void delBook(String price,Book book) throws Exception{
+    public String delBook(Model model,String price,Book book) throws Exception{
         book.setPrice(new BigDecimal(price));
             bookService.deleteBook(book);
+        model.addAttribute("msg","删除成功");
+        return "jsps/msg";
     }
     @GetMapping("addBookPre.action")
     public String addBookPre(HttpSession httpSession) throws Exception{
@@ -106,7 +109,7 @@ public class AdminController {
            allCategory = categoryService.findAllCategory();
         }
         httpSession.setAttribute("allCategory",allCategory);
-        return "/adminjsps/admin/book/add";
+        return "WEB-INF/adminjsps/admin/book/add";
     }
     @PostMapping("addBook.action")
     public String addBook(HttpServletRequest httpServletRequest,
@@ -129,14 +132,14 @@ public class AdminController {
         else {
             model.addAttribute("msg","请上传图片");
         }
-        return "adminjsps/admin/book/add";
+        return "WEB-INF/adminjsps/admin/book/add";
     }
     @GetMapping("findAllOrders.action")
     public String findAllOrders(Model model) throws Exception{
         List<List<OrdersExpand>> all=orderService.findAllOrders();
         model.addAttribute("title","所有订单");
         model.addAttribute("all",all);
-        return "adminjsps/admin/order/list";
+        return "WEB-INF/adminjsps/admin/order/list";
     }
     @GetMapping("findOrdersByState.action")
     public String findOrdersByState(String title,String state,Model model) throws Exception{
@@ -156,6 +159,26 @@ public class AdminController {
         model.addAttribute("title",title);
         model.addAttribute("all",newAll);
         System.out.println(s);
-        return "adminjsps/admin/order/list";
+        return "WEB-INF/adminjsps/admin/order/list";
+    }
+    @GetMapping("main")
+    public String index() throws  Exception{
+        return "WEB-INF/adminjsps/admin/main";
+    }
+    @GetMapping("top")
+    public String top() throws  Exception{
+        return "WEB-INF/adminjsps/admin/top";
+    }
+    @GetMapping("left")
+    public String left() throws  Exception{
+        return "WEB-INF/adminjsps/admin/left";
+    }
+    @GetMapping("body")
+    public String body() throws  Exception{
+        return "WEB-INF/adminjsps/admin/body";
+    }
+    @GetMapping("addC")
+    public String addC() throws  Exception{
+        return "WEB-INF/adminjsps/admin/category/add";
     }
 }

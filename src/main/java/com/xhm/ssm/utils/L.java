@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * @program: bookstore
  * @description: 日志工具类的简单封装
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-22 13:20
  * @version: 1.0
  */

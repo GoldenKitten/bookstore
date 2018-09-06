@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @program: bookstore
  * @description: 图书控制类
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-23 16:55
  * @version: 1.0
  */

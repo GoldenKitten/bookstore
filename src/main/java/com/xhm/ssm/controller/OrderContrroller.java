@@ -20,7 +20,7 @@ import java.util.UUID;
 /**
  * @program: bookstore
  * @description: 订单控制类
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-25 20:18
  * @version: 1.0
  */

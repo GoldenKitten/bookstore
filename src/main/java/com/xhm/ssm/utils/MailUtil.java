@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * @program: bookstore
  * @description: 邮件工具类
- * @author: 夏红明
+ * @author: GoldenKitten
  * @date: 2018-05-22 13:20
  * @version: 1.0
  */
@@ -25,7 +25,7 @@ public class MailUtil {
         * @Description:  发送邮件
         * @Param: [to, content] to 收件方邮箱,content 邮件内容
         * @return: void
-        * @Author: 夏红明
+        * @Author: GoldenKitten
         * @Date: 2018/5/23 16:15
         */
         simpleMailMessage.setTo(to);
