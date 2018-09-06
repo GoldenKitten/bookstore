@@ -71,8 +71,7 @@ public class HandlerInterceptor1 implements HandlerInterceptor {
             return true;
         }
          if(uri.indexOf("/admin")>=0){
-            if(user!=null&&user.getUsername().equals("xhm")&&user.getPassword().equals("12345678")){
-                return true;
+            if(user!=null&&user.getUsername().equals("xia")&&user.getPassword().equals("12345678")){                return true;
             }
             else {
                 //httpServletResponse.sendRedirect("/error.jsp");

@@ -1,61 +1,118 @@
-﻿create database bookstore;
-use bookstore;
-/*用户表*/
-CREATE TABLE tb_user(
-  uid CHAR(32) PRIMARY KEY,/*主键*/
-  username VARCHAR(50) NOT NULL,/*用户名*/
-  password VARCHAR(50) NOT NULL,/*密码*/
-  email VARCHAR(50) NOT NULL,/*邮箱*/
-  code CHAR(64) NOT NULL,/*激活码*/
-  state BOOLEAN/*用户状态，有两种是否激活*/
-);
+/*
+ Navicat Premium Data Transfer
 
-/*分类*/
-CREATE TABLE tb_category (
-  cid CHAR(32) PRIMARY KEY,/*主键*/
-  cname VARCHAR(100) NOT NULL/*分类名称*/
-);
+ Source Server         : mysql
+ Source Server Type    : MySQL
+ Source Server Version : 80011
+ Source Host           : localhost:3306
+ Source Schema         : bookstore
 
-INSERT  INTO tb_category(cid,cname) VALUES ('1','JavaSE');
-INSERT  INTO tb_category(cid,cname) VALUES ('2','JavaEE');
-INSERT  INTO tb_category(cid,cname) VALUES ('3','Javascript');
-/*图书表*/
-CREATE TABLE tb_book (
-  bid CHAR(32) PRIMARY KEY,/*主键*/
-  bname VARCHAR(100),/*图书名*/
-  price DECIMAL(5,1),/*单价*/
-  author VARCHAR(20),/*作者*/
-  image VARCHAR(200),/*图片*/
-  cid CHAR(32),/*所属分类*/
-  FOREIGN KEY (cid) REFERENCES tb_category(cid)/*建立主外键关系*/
-);
+ Target Server Type    : MySQL
+ Target Server Version : 80011
+ File Encoding         : 65001
 
-INSERT  INTO tb_book VALUES ('1','Java编程思想（第4版）','75.6','qdmmy6','book_img/9317290-1_l.jpg','1');
-INSERT  INTO tb_book VALUES ('2','Java核心技术卷1','68.5','qdmmy6','book_img/20285763-1_l.jpg','1');
-INSERT  INTO tb_book VALUES ('3','Java就业培训教程','39.9','张孝祥','book_img/8758723-1_l.jpg','1');
-INSERT  INTO tb_book VALUES ('4','Head First java','47.5','（美）塞若','book_img/9265169-1_l.jpg','1');
-INSERT  INTO tb_book VALUES ('5','JavaWeb开发详解','83.3','孙鑫','book_img/22788412-1_l.jpg','2');
-INSERT  INTO tb_book VALUES ('6','Struts2深入详解','63.2','孙鑫','book_img/20385925-1_l.jpg','2');
-INSERT  INTO tb_book VALUES ('7','精通Hibernate','30.0','孙卫琴','book_img/8991366-1_l.jpg','2');
-INSERT  INTO tb_book VALUES ('8','精通Spring2.x','63.2','陈华雄','book_img/20029394-1_l.jpg','2');
-INSERT  INTO tb_book VALUES ('9','Javascript权威指南','93.6','（美）弗兰纳根','book_img/22722790-1_l.jpg','3');
-/*订单表*/
-CREATE TABLE tb_orders (
-  oid CHAR(32) PRIMARY KEY,/*主键*/
-  ordertime DATETIME,/*订单生成时间*/
-  total DECIMAL(10,0),/*订单合计*/
-  state SMALLINT(1),/*订单状态：未付款、已付款但未发货、已发货但未确认收货、收货已结束*/
-  uid CHAR(32),/*订单的主人*/
-  address VARCHAR(200),/*订单的收货地址*/
-  FOREIGN KEY (uid) REFERENCES tb_user(uid)/*建立主外键关系*/
-);
-/*订单项表*/
-CREATE TABLE tb_orderitem (
-  iid CHAR(32) PRIMARY KEY,/*主键*/
-  count INT,/*数量orderitem*/
-  subtotal DECIMAL(10,0),/*小计*/
-  oid CHAR(32),/*所属订单*/
-  bid CHAR(32),/*订单项所指的商品*/
-  FOREIGN KEY (oid) REFERENCES tb_orders (oid),/*建立主外键关系*/
-  FOREIGN KEY (bid) REFERENCES tb_book (bid)/*建立主外键关系*/
-);
+ Date: 06/09/2018 16:42:39
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for tb_book
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_book`;
+CREATE TABLE `tb_book`  (
+  `bid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `bname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `price` decimal(5, 1) NULL DEFAULT NULL,
+  `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `image` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `cid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`bid`) USING BTREE,
+  INDEX `cid`(`cid`) USING BTREE,
+  CONSTRAINT `tb_book_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `tb_category` (`cid`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_book
+-- ----------------------------
+INSERT INTO `tb_book` VALUES ('1', 'Java编程思想（第4版）', 75.6, 'qdmmy6', 'book_img/9317290-1_l.jpg', '1');
+INSERT INTO `tb_book` VALUES ('2', 'Java核心技术卷1', 68.5, 'qdmmy6', 'book_img/20285763-1_l.jpg', '1');
+INSERT INTO `tb_book` VALUES ('3', 'Java就业培训教程', 39.9, '张孝祥', 'book_img/8758723-1_l.jpg', '1');
+INSERT INTO `tb_book` VALUES ('4', 'Head First java', 47.5, '（美）塞若', 'book_img/9265169-1_l.jpg', '1');
+INSERT INTO `tb_book` VALUES ('5', 'JavaWeb开发详解', 83.3, '孙鑫', 'book_img/22788412-1_l.jpg', '2');
+INSERT INTO `tb_book` VALUES ('6', 'Struts2深入详解', 63.2, '孙鑫', 'book_img/20385925-1_l.jpg', '2');
+INSERT INTO `tb_book` VALUES ('7', '精通Hibernate', 30.0, '孙卫琴', 'book_img/8991366-1_l.jpg', '2');
+INSERT INTO `tb_book` VALUES ('8', '精通Spring2.x', 63.2, '陈华雄', 'book_img/20029394-1_l.jpg', '2');
+INSERT INTO `tb_book` VALUES ('9', 'Javascript权威指南', 93.6, '（美）弗兰纳根', 'book_img/22722790-1_l.jpg', '3');
+
+-- ----------------------------
+-- Table structure for tb_category
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_category`;
+CREATE TABLE `tb_category`  (
+  `cid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `cname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`cid`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_category
+-- ----------------------------
+INSERT INTO `tb_category` VALUES ('1', 'JavaSE');
+INSERT INTO `tb_category` VALUES ('2', 'JavaEE');
+INSERT INTO `tb_category` VALUES ('3', 'Javascript');
+
+-- ----------------------------
+-- Table structure for tb_orderitem
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_orderitem`;
+CREATE TABLE `tb_orderitem`  (
+  `iid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `count` int(11) NULL DEFAULT NULL,
+  `subtotal` decimal(10, 0) NULL DEFAULT NULL,
+  `oid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `bid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`iid`) USING BTREE,
+  INDEX `oid`(`oid`) USING BTREE,
+  INDEX `bid`(`bid`) USING BTREE,
+  CONSTRAINT `tb_orderitem_ibfk_1` FOREIGN KEY (`oid`) REFERENCES `tb_orders` (`oid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tb_orderitem_ibfk_2` FOREIGN KEY (`bid`) REFERENCES `tb_book` (`bid`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for tb_orders
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_orders`;
+CREATE TABLE `tb_orders`  (
+  `oid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `ordertime` datetime(0) NULL DEFAULT NULL,
+  `total` decimal(10, 0) NULL DEFAULT NULL,
+  `state` smallint(1) NULL DEFAULT NULL,
+  `uid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`oid`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE,
+  CONSTRAINT `tb_orders_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `tb_user` (`uid`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for tb_user
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE `tb_user`  (
+  `uid` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `code` char(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `state` tinyint(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`uid`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_user
+-- ----------------------------
+INSERT INTO `tb_user` VALUES ('1', 'xia', '12345678', 'goldenkitten@163.com', '1', 1);
+
+SET FOREIGN_KEY_CHECKS = 1;
